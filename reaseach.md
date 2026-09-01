@@ -1,86 +1,57 @@
-# The Science of a Points-Based Personal Productivity System: A Research Review
+# The System
 
-## TL;DR
-- The described system is **strongly aligned with peer-reviewed evidence**: its two most important design choices — converting outcome goals into daily *process* goals, and *monitoring/scoring* progress every day — map directly onto the two interventions with the largest, best-replicated effect sizes in the goal literature (process goals d = 1.36 in sport; progress monitoring d+ = 0.40 across 138 experiments and 19,951 people).
-- The system's weakest, highest-risk elements are the **extrinsic points/bonus scoring** (which can crowd out intrinsic motivation per Deci, Koestner & Ryan's 1999 meta-analysis of 128 studies) and the **rigid daily 60-point threshold** (which can trigger the "goals gone wild" side effects of tunnel vision, unethical shortcuts, and reduced well-being). Both are manageable with specific design fixes.
-- Net assessment: **adopt the system, with four evidence-based modifications** — anchor points to identity/mastery rather than treating them as the reward, build in a "streak-freeze" tolerance for missed days, make the weekly reflection structured and written with tracked action items, and add a monthly review that audits neglected non-goal life areas.
+The system is built around **3–4 key areas** that I want to make meaningful progress in throughout my life.
+
+For each key area, I set **one goal per month**. Instead of focusing directly on the final outcome, I break each goal down into **daily processes** — concrete actions that I can actually control.
+
+Each daily process is assigned a **priority weight** based on its importance, for example **35, 25, 20, 10, 10**, with the total adding up to 100.
+
+At the end of each day, I score myself based on how well I completed those processes. The result is a **daily score out of 100**.
+
+The score is not a reward. It is **feedback**: a simple way to see whether my daily behavior is aligned with the goals I set for myself.
+
+The system also uses **streaks** to reinforce consistency. A streak represents consecutive days of engaging with the system, but it is not meant to create an all-or-nothing mentality. Missing a day does not mean the system has failed. The objective is **long-term consistency, not a perfect record**.
+
+At the end of each week, I conduct a short **written retrospective**:
+
+* What went well?
+* What didn't?
+* What should I change?
+
+The system therefore creates a continuous loop:
+
+**Life areas → Monthly goals → Daily processes → Daily score → Streak & consistency → Weekly feedback → System improvement**
+
+The underlying idea is simple: **I don't directly control outcomes, but I can control the processes that move me toward them.**
+
+The system is designed around several findings from the goal-setting and self-regulation literature: process goals can be more effective than outcome goals, progress monitoring improves goal attainment, specific and challenging goals outperform vague intentions, and reflection can improve subsequent performance.
+
+The goal is not to turn life into a game or maximize a number. The goal is to create a **measurable feedback system for continuously improving my behavior**.
+
+
 
 ## Key Findings
 
-**1. Process goals beat outcome goals — this is the system's biggest strength.** Williamson et al.'s 2022 systematic review and meta-analysis of goal setting in sport (*International Review of Sport and Exercise Psychology*, 17,841 articles screened, 27 studies included) found process goals were "significantly more beneficial for enhancing performance (d = 1.36) compared to performance goals (d = 0.44) and outcome goals (d = 0.09), whereas process goals also significantly increased self-efficacy (d = 1.11)." The outcome-goal effect (d = 0.09) is statistically indistinguishable from zero. The system's core move — turning "get abroad alternance" into "apply 20 times daily + get 1 CV feedback" — is exactly what the evidence recommends.
+**1. Process goals beat outcome goals ; this is the system's biggest strength.** Williamson et al.'s 2022 systematic review and meta-analysis of goal setting in sport (*International Review of Sport and Exercise Psychology*, 17,841 articles screened, 27 studies included) found process goals were "significantly more beneficial for enhancing performance (d = 1.36) compared to performance goals (d = 0.44) and outcome goals (d = 0.09), whereas process goals also significantly increased self-efficacy (d = 1.11)." The outcome-goal effect (d = 0.09) is statistically indistinguishable from zero. The system's core move — turning "get abroad alternance" into "apply 20 times daily + get 1 CV feedback" — is exactly what the evidence recommends.
 
 **2. Daily scoring/monitoring is one of the most robust interventions in psychology.** Harkin et al.'s 2016 meta-analysis in *Psychological Bulletin* (138 studies, N = 19,951) found interventions to increase progress monitoring had a very large effect on monitoring frequency (d+ = 1.98, 95% CI [1.71, 2.24]) and a small-to-medium effect on actual goal attainment (d+ = 0.40, 95% CI [0.32, 0.48]). Crucially, effects on attainment were larger when progress was physically recorded (d+ = 0.43 vs. 0.29 not recorded) and when it was made public (d+ = 0.55) or reported to at least one other person (d+ = 0.47) versus monitored privately (d+ = 0.19).
 
 **3. Specific + difficult goals with feedback are foundational.** Locke & Latham's goal-setting theory, built on nearly 400 studies and formalized in their 2002 *American Psychologist* paper "Building a Practically Useful Theory of Goal Setting and Task Motivation," shows specific, difficult goals consistently outperform vague "do your best" exhortations, with meta-analytic effect sizes ranging from .42 to .80. The system's point allocations (35/25/20/10/10) and quantified daily processes operationalize both specificity and difficulty.
 
-**4. Proximal daily sub-goals build competence and self-efficacy.** Bandura & Schunk's classic 1981 experiment (*Journal of Personality and Social Psychology*, 40 children aged 7–10 with math deficits) showed children given proximal sub-goals progressed faster in self-directed learning, achieved greater mastery, and developed higher self-efficacy and intrinsic interest, while distal goals "had no demonstrable effects." The daily-process structure is a proximal-goal engine.
+**4. Weekly reflection has direct causal evidence.** Di Stefano, Gino, Pisano & Staats ("Learning by Thinking," HBS Working Paper 14-093) found that workers who spent 15 minutes reflecting at day's end "improved their score on the final assessment test of 15.1 points — that is, a 22.8% increase with respect to the average score for the entire sample," an effect mediated by increased self-efficacy. The mandatory weekly retrospective is well-founded.
 
-**5. Weekly reflection has direct causal evidence.** Di Stefano, Gino, Pisano & Staats ("Learning by Thinking," HBS Working Paper 14-093) found that workers who spent 15 minutes reflecting at day's end "improved their score on the final assessment test of 15.1 points — that is, a 22.8% increase with respect to the average score for the entire sample," an effect mediated by increased self-efficacy. The mandatory weekly retrospective is well-founded.
+**5. The extrinsic points system is the main risk.** Deci, Koestner & Ryan's 1999 meta-analysis (*Psychological Bulletin*, 128 studies) found tangible, expected, contingent rewards significantly undermined free-choice intrinsic motivation (engagement-contingent d = −0.40; completion-contingent d = −0.36; performance-contingent d = −0.28). Points that become the reason for acting can crowd out genuine interest.
 
-**6. The extrinsic points system is the main risk.** Deci, Koestner & Ryan's 1999 meta-analysis (*Psychological Bulletin*, 128 studies) found tangible, expected, contingent rewards significantly undermined free-choice intrinsic motivation (engagement-contingent d = −0.40; completion-contingent d = −0.36; performance-contingent d = −0.28). Points that become the reason for acting can crowd out genuine interest.
+**6. Streaks and behavioral commitment**
 
-## Details
-
-### Component 1: Monthly goal-setting — 5 goals with weighted point allocations
-Locke & Latham's goal-setting theory is among the most validated frameworks in motivational psychology, drawing on nearly 400 laboratory and field studies covering over 40,000 participants across 88 tasks. Four mechanisms explain why goals work: they direct attention, energize effort, increase persistence, and promote task-relevant strategy discovery. Specific, difficult goals outperform "do your best" instructions (meta-analytic effect sizes .42–.80), and within the limits of ability the relationship between goal difficulty and performance is roughly linear. The system's numeric point weights (35/25/20/10/10) enforce specificity and force explicit prioritization.
-
-The prioritization design is supported by multiple-goal-pursuit research. Shah, Friedman & Kruglanski (2002, *JPSP*, "Forgetting all else: On the antecedents and consequences of goal shielding") demonstrated "goal shielding" — activating a focal goal inhibits the cognitive accessibility of competing goals — and showed that when people pursue multiple goals, one tends to dominate or all suffer. Explicitly ranking five goals by points helps resolve this conflict. However, a caution: Ballard, Farrell & Neal (2018) found people tend to try to achieve *all* conflicting goals rather than cleanly prioritize, even when an extrinsic incentive rewards focusing on one. Five simultaneous monthly goals may be near the upper limit of what is manageable.
-
-**Risk — "Goals Gone Wild":** Ordóñez, Schweitzer, Galinsky & Bazerman (2009, *Academy of Management Perspectives*) catalogued the systematic side effects of over-prescribing goals: a narrow focus that neglects non-goal areas, a rise in unethical behavior, distorted risk preferences, inhibited learning, corrosion of culture, and reduced intrinsic motivation. A rigid points system that rewards only the five chosen goals risks exactly this tunnel vision — the authors explicitly recommend goal setting come with a "warning label."
-
-### Component 2: Daily process-based execution
-This is the system's strongest evidence base. As above, Williamson et al. (2022) found process goals (d = 1.36) dramatically outperformed outcome goals (d = 0.09) for performance, and also raised self-efficacy (d = 1.11) and reduced anxiety. Process goals put action within the person's control. Converting "get abroad alternance" into "apply 20 times daily + get 1 CV feedback" is a textbook process-goal conversion.
-
-Bandura & Schunk (1981) provide the mechanism: proximal sub-goals cultivate competence, self-efficacy, and intrinsic interest, while distal goals alone do not. Daily repeatable processes are proximal by design. Self-efficacy theory (Bandura) further holds that *mastery experiences* — successful task completion attributed to one's own effort — are the single most powerful source of efficacy beliefs; a daily process that is regularly completed manufactures repeated mastery experiences.
-
-The daily structure also functions as habit formation. Lally et al. (2010, *European Journal of Social Psychology*, 96 participants over 84 days) found that automaticity from daily repetition in a consistent context builds along an asymptotic curve, plateauing after a median of 66 days (range 18–254). Critically, "missing one opportunity to perform the behaviour did not materially affect the habit formation process" — a key finding for how the system should treat off days.
-
-Implementation intentions strengthen the conversion further: Gollwitzer & Sheeran's 2006 meta-analysis (*Advances in Experimental Social Psychology*, vol. 38) found across 94 independent tests that "implementation intentions had a positive effect of medium-to-large magnitude (d = .65) on goal attainment." Framing daily processes as "if [cue], then I will [action]" would amplify the system by automating initiation.
-
-### Component 3: Daily 100-point scoring (60 = good day; top-2 goals = done)
-Progress monitoring is causally validated by Harkin et al. (2016): d+ = 0.40 on goal attainment across 138 experiments, stronger when physically recorded (d+ = 0.43) and public/reported (d+ = 0.55/0.47). The 100-point scale is a physical-recording mechanism, placing it in the higher-effect category. The meta-analysis also found a "matching" effect: monitoring *behavior* most improves behavior (d+ = 0.79), while monitoring *outcomes* most improves outcomes (d+ = 0.62) — supporting the system's emphasis on scoring daily process behaviors rather than distant outcomes.
-
-The threshold design (60 = good; top-2 = done) reflects sound sub-goal logic: it creates an attainable daily floor and thus reliable daily mastery experiences. Amabile & Kramer's "progress principle" (*The Progress Principle*, Harvard Business Review Press, 2011, based on rigorous analysis of nearly 12,000 daily diary entries from 238 employees in 7 companies) found that of all events that boost motivation and "inner work life," the single most important is making progress on meaningful work — even a small step forward. A daily "good day" threshold manufactures a daily small win.
-
-**Caution on scoring rigidity:** A binary/threshold system can backfire if a missed threshold reads as total failure. Habit and streak research both warn that all-or-nothing framing increases abandonment after a lapse — directly contradicting Lally's finding that a single missed day is harmless to habit formation.
-
-### Component 4: Bonus system (exceeding 100 points)
-The goal-gradient effect — first shown by Hull (1934) in rats and extended to humans by Kivetz, Urminsky & Zheng (2006, *Journal of Marketing Research*, café loyalty-card field study) — shows motivation and effort increase as people near a goal, and that even *illusory/endowed* progress accelerates pursuit. Allowing scores above 100 leverages this open-ended "there is always more" dynamic. Bonus activities like "talking to strangers" also introduce beneficial stretch behaviors. Note Kivetz's honest caveat: motivation *slumps* immediately after a reward is reached until a new goal opens — so the system should always have the next day/goal ready.
-
-**The central tension — overjustification:** Deci, Koestner & Ryan (1999) found tangible, expected, contingent rewards undermine intrinsic motivation (d = −0.28 to −0.40). If points *become* the reason for doing activities, intrinsic interest can erode, and once points are removed behavior may collapse below baseline. However, the same meta-analysis offers the fix: *positive feedback and verbal rewards enhanced* free-choice intrinsic motivation, and later reanalyses (e.g., Cameron and colleagues) found rewards tied to clear performance standards that signal competence can *increase* it. The points should therefore be framed as *informational feedback about competence*, not as controlling incentives.
-
-Gamification evidence is mixed-positive. Sailer & Homner's 2020 meta-analysis (*Educational Psychology Review*, 32(1):77–112) found "significant small effects of gamification on cognitive (g = .49, 95% CI [0.30, 0.69], k = 19), motivational (g = .36, 95% CI [0.18, 0.54], k = 16), and behavioral learning outcomes (g = .25, 95% CI [0.04, 0.46], k = 9)." Li et al.'s 2024 meta-analysis (*Educational Technology Research and Development*, 72(2):765–796) found gamification had "a positive and significant effect on students' perceptions of autonomy (Hedges' g = 0.638) and relatedness (Hedges' g = 1.776), but minimal impact on competence (Hedges' g = 0.277, 95% CI [0.001, 0.553])."
-
-### Component 5: Weekly mandatory self-reflection
-Di Stefano et al.'s "Learning by Thinking" combined two lab experiments with a field experiment at an Indian business-process-outsourcing firm. Reflection produced a 22.8% improvement on the final assessment (a 15.1-point gain on a sample average of 66.1), mediated by self-efficacy, and reflection could beat additional raw practice. Reflection was most beneficial early on the learning curve, once sufficient experience had accumulated to reflect upon — supporting a weekly (not daily-only) cadence layered on top of daily doing.
-
-Agile retrospective research reinforces structured reflection. The key finding (Springer, *Reflection in Agile Retrospectives*) is that reflection only drives continuous improvement when it reaches the level of *reconstructing* — generating concrete action points and following up on them in subsequent cycles — rather than merely "reporting and responding" to what happened. The system's "what went well / what didn't / action items" structure matches best practice, *provided* action items are carried into and reviewed the following week. This mirrors the 12th Agile principle: reflect at regular intervals, then tune and adjust behavior accordingly.
-
-### Cross-cutting: Self-Determination Theory
-Ryan & Deci's Self-Determination Theory (2000, *American Psychologist*) holds that three innate needs — autonomy, competence, and relatedness — drive intrinsic motivation and well-being. The system strongly supports **competence** (daily mastery, self-efficacy from process goals) and **autonomy** (self-set goals, self-scoring, self-chosen processes). It is weak on **relatedness** — it is largely a solo system. Both the monitoring literature (Harkin: public/reported monitoring d+ = 0.55/0.47 vs. 0.19 private) and streak research suggest adding a social/accountability layer would substantially strengthen it.
-
-### Streaks and behavioral commitment
 Streak mechanics leverage loss aversion — a built streak becomes something to protect ("I don't want to lose my 8-day streak" is stronger than "I want an 8-day streak"). But the research consistently warns streaks backfire when maintaining them causes anxiety, when quality is sacrificed for the number, or when a single break causes total abandonment. The well-supported mitigation is a "streak freeze" / minimum-viable-version tolerance, consistent with Lally's finding that one missed day doesn't derail habit formation. A useful self-check from this literature: "Would I do this if there were no streak?"
 
 ## Recommendations
 
-**Adopt the system — it is one of the more evidence-aligned personal productivity designs available — with these four staged modifications:**
 
-1. **Reframe points as competence feedback, not rewards (do immediately).** To avoid the overjustification trap (Deci et al., 1999), treat the daily score as *information about how you're doing*, not as the prize itself. The same literature shows informational, competence-signaling feedback *enhances* intrinsic motivation while controlling rewards undermine it. Periodically run the streak-research diagnostic: "Would I do this activity if there were no points?" If the answer is "no" for many activities, rebalance toward things you value intrinsically.
+
+1. **The points are competence feedback, not rewards (do immediately).** To avoid the overjustification trap (Deci et al., 1999), treat the daily score as *information about how you're doing*, not as the prize itself. The same literature shows informational, competence-signaling feedback *enhances* intrinsic motivation while controlling rewards undermine it. Periodically run the streak-research diagnostic: "Would I do this activity if there were no points?" If the answer is "no" for many activities, rebalance toward things you value intrinsically.
 
 2. **Build in lapse tolerance (do immediately).** Replace all-or-nothing daily scoring with a "minimum viable day" floor and a monthly allowance of "freeze" days. This is directly supported by Lally et al. (2010) — one missed repetition doesn't harm habit formation — and by streak research showing rigid streaks drive abandonment. *Benchmark:* if a single missed 60-point day ever makes you abandon the system for the rest of the week, the threshold is too rigid.
 
 3. **Make the weekly reflection structured, written, and action-tracked (within first month).** Follow Di Stefano (write it, ~15 min) and the agile-retrospective finding that reflection only pays off when it reaches concrete, followed-up action items. Each week capture: (a) what went well, (b) what didn't, (c) 1–3 specific action items, and (d) an explicit review of last week's action items. Reflection that stops at description leaves most of the 22.8% effect on the table.
-
-4. **Add accountability and a non-goal audit (within first quarter).** (a) Report your weekly score/reflection to one other person — Harkin et al. found public/reported monitoring roughly doubles-to-triples the effect on attainment (d+ = 0.55/0.47 vs. 0.19), and this also fills SDT's relatedness gap. (b) Add a monthly "neglected areas" check to counter the tunnel-vision risk (Ordóñez et al., 2009): explicitly ask which important life domains your five weighted goals are causing you to ignore.
-
-**Thresholds that would change these recommendations:** If you find yourself gaming the score (inflating points, doing trivial bonus activities purely for numbers), cut or shrink the bonus system and revert to pure process tracking. If motivation drops whenever you take a break from scoring, that signals overjustification has set in — reduce the salience of points and re-anchor on the intrinsic "why." If five goals consistently means all five underperform, cut to three — the multiple-goal-conflict literature (Shah 2002; Ballard 2018) favors fewer, well-shielded goals.
-
-## Caveats
-- **Effect sizes are context-transferred.** The largest process-goal effect (d = 1.36) comes from *sport* settings; the monitoring effect (d = 0.40) is largely from *health* behaviors. Both should generalize to personal productivity, but no meta-analysis has tested this exact five-goal, 100-point system.
-- **Publication bias is present.** Harkin et al. noted modest publication bias — trim-and-fill adjusted the goal-attainment estimate downward to d+ = 0.19 (still positive and significant). Sailer & Homner found gamification's motivational and behavioral effects were "less stable" under high methodological rigor, while cognitive effects held.
-- **The reward literature is genuinely contested.** Cameron, Banko & Pierce and others have challenged the strength and generality of the overjustification effect, and some reanalyses of field studies found performance-contingent rewards can *increase* intrinsic motivation. The safe, consensus reading is that *how* a reward is framed (informational vs. controlling) matters enormously — which is why Recommendation 1 is framed the way it is.
-- **Many popular sources overstate findings.** The "21 days to form a habit" claim is a myth traceable to a 1960 plastic-surgery observation; the real evidence (Lally) is a 66-day *median* with an 18–254-day range. Non-peer-reviewed sources (streak apps, productivity blogs) were used in this review only for illustrative framing, never for empirical effect-size claims.
-- **Self-report limits.** Habit-formation studies (Lally) and daily-diary studies (Amabile) rely on self-report, which can be biased. The system's self-scoring shares this vulnerability — scores measure *perceived*, not necessarily *actual*, performance, which is another reason the external-accountability recommendation matters.
-- **Minor source discrepancy noted for transparency:** Harkin et al.'s monitoring-frequency effect appears as d+ = 1.98, 95% CI [1.71, 2.24] in the abstract and [1.72, 2.24] in the results text — the paper's own internal inconsistency, not a transcription error.
-
