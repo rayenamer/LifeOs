@@ -1,0 +1,70 @@
+/* LifeOS design tokens — sharp / dark / futuristic / analytical / minimal */
+
+:root {
+  /* --- surfaces --- */
+  --bg: #050505;
+  --bg-1: #0a0a0a;
+  --bg-2: #111111;
+  --bg-3: #161616;
+  --surface-glass: rgba(255, 255, 255, 0.02);
+  --surface-raised: rgba(255, 255, 255, 0.035);
+
+  /* --- lines --- */
+  --border: #222222;
+  --border-1: #2a2a2a;
+  --border-strong: #383838;
+  --grid-line: rgba(255, 255, 255, 0.022);
+
+  /* --- text --- */
+  --text: #ededed;
+  --text-1: #a8a8a8;
+  --text-2: #6b6b6b;
+  --text-3: #454545;
+
+  /* --- accent (configurable in Settings) --- */
+  --accent: #00f0ff;
+  --accent-dim: rgba(0, 240, 255, 0.14);
+  --accent-glow: rgba(0, 240, 255, 0.35);
+
+  /* --- score scale: neutral -> positive (looks fine in monochrome) --- */
+  --score-void: #3a3a3a;
+  --score-low: #7a6a5c;
+  --score-mid: #b8a06a;
+  --score-good: #7fc8a9;
+  --score-high: #4be3b0;
+
+  /* --- state --- */
+  --danger: #ff5c6c;
+  --freeze: #6ea8ff;
+  --freeze-dim: rgba(110, 168, 255, 0.16);
+
+  /* --- typography --- */
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
+
+  /* --- spacing --- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* --- radius (restrained) --- */
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 8px;
+
+  /* --- motion --- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 420ms;
+
+  /* --- layout --- */
+  --nav-w: 232px;
+  --content-max: 1180px;
+}
