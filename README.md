@@ -19,9 +19,14 @@ A missed day never erases history.
 ## Stack
 
 - **Angular 19**, standalone components, signals, Angular Router, Reactive Forms
-- **SQLite in the browser** via `sql.js` (WebAssembly). The whole database is
-  serialised to a byte array and written to **IndexedDB** after every mutation,
-  so a refresh or restart never loses data. No server — deployable as a static site.
+- **SQLite in the browser** via `sql.js` (WebAssembly) — the real SQLite engine
+  running in the tab. The whole database is serialised to a byte array and
+  written to **IndexedDB** after every mutation, so a refresh or restart never
+  loses data. No server — deployable as a static site.
+- **Data vault** (Settings → Data vault): link the database to a real
+  `lifeos.sqlite` file on your disk (File System Access API, Chromium/Brave) and
+  every change is written there too — a portable, user-owned copy to back up or
+  sync. Plus manual **Export / Import** in any browser.
 - **Chart.js + ng2-charts** for trend/bar charts; custom SVG for the calendar
   heatmap and the month-detail radial constellation.
 - Clean repository / service architecture — all business rules
@@ -36,8 +41,12 @@ npm start            # http://localhost:4200
 ```
 
 The app starts empty. Create your first life area and monthly goal from the
-Goal Wizard (**+ NEW GOAL**). All data lives only in your browser; wipe it any
-time from **Settings → Data → Reset system**.
+Goal Wizard (**+ NEW GOAL**).
+
+Your data lives in this browser by default. For a copy you own, open
+**Settings → Data vault** and either **Save my data to a file…** (Brave / Chrome —
+keeps `lifeos.sqlite` on disk in sync automatically) or **Export** it manually.
+Wipe everything from **Settings → Data → Reset system**.
 
 ## Build
 

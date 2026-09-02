@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import type { Database, SqlJsStatic, SqlValue } from 'sql.js';
 import { MIGRATIONS, SCHEMA_SQL, SCHEMA_VERSION } from './schema';
+import { FileVaultService } from './file-vault.service';
 
 type InitSqlJsFn = (config?: { locateFile?: (file: string) => string }) => Promise<SqlJsStatic>;
 
@@ -42,14 +43,22 @@ const IDB_NAME = 'lifeos';
 const IDB_STORE = 'kv';
 const IDB_KEY = 'sqlite-db';
 
+/** Result of trying to point the vault at a save location. */
+export type VaultLinkResult = 'linked' | 'existing-data' | 'cancelled';
+
 /**
  * Owns the in-browser SQLite engine (sql.js / WASM) and its persistence.
  *
- * The full database is serialised to a byte array and written to IndexedDB after
- * every mutation (debounced), so a refresh or restart never loses data.
+ * Every mutation is written back to two places (debounced):
+ *  - IndexedDB, always — a fast in-browser cache and the fallback store.
+ *  - a real `lifeos.sqlite` file on disk, when the user has linked one via the
+ *    File System Access API ({@link FileVaultService}). That file is the
+ *    portable, user-owned copy of the data.
  */
 @Injectable({ providedIn: 'root' })
 export class SqliteService {
+  readonly vault = inject(FileVaultService);
+
   private sql!: SqlJsStatic;
   private db!: Database;
   private ready = false;
@@ -64,11 +73,32 @@ export class SqliteService {
       locateFile: (file: string) => new URL(file, document.baseURI).href,
     });
 
-    let snapshot: Uint8Array | null = null;
+    // Ask the browser not to evict our IndexedDB cache under storage pressure.
     try {
-      snapshot = await this.idbGet();
+      await navigator.storage?.persist?.();
     } catch {
-      snapshot = null;
+      /* not supported / denied — the disk file is the real safety net anyway */
+    }
+
+    await this.vault.restore();
+
+    let snapshot: Uint8Array | null = null;
+
+    // A linked disk file is the source of truth — load it first.
+    if (this.vault.linked()) {
+      try {
+        snapshot = await this.vault.readBytes();
+      } catch {
+        snapshot = null;
+      }
+    }
+
+    if (!snapshot) {
+      try {
+        snapshot = await this.idbGet();
+      } catch {
+        snapshot = null;
+      }
     }
 
     if (snapshot) {
@@ -188,6 +218,77 @@ export class SqliteService {
     await this.persistNow();
   }
 
+  // --- disk vault ------------------------------------------------------------
+
+  /**
+   * Ask the user for a location to keep `lifeos.sqlite`. If the file they pick
+   * already holds a database, returns `'existing-data'` without touching it —
+   * the caller should confirm, then call {@link adoptVaultFile}.
+   */
+  async linkVaultSaveTarget(): Promise<VaultLinkResult> {
+    const handle = await this.vault.pickSaveTarget();
+    if (!handle) return 'cancelled';
+    const existing = await this.vault.readBytes();
+    if (existing && existing.length) return 'existing-data';
+    await this.persistNow();
+    return 'linked';
+  }
+
+  /** Pick an existing `.sqlite` file, load it, and keep writing to it. */
+  async linkVaultExistingFile(): Promise<'linked' | 'cancelled'> {
+    const handle = await this.vault.pickExistingFile();
+    if (!handle) return 'cancelled';
+    await this.adoptVaultFile();
+    return 'linked';
+  }
+
+  /** Replace the in-memory database with the linked file's contents. */
+  async adoptVaultFile(): Promise<void> {
+    const bytes = await this.vault.readBytes();
+    if (!bytes) {
+      await this.persistNow();
+      return;
+    }
+    this.loadBytes(bytes);
+    await this.persistNow();
+  }
+
+  /** Re-grant write access to a remembered file after a restart. */
+  async reconnectVault(): Promise<boolean> {
+    const ok = await this.vault.reconnect();
+    if (ok) await this.persistNow();
+    return ok;
+  }
+
+  /** Stop writing to the disk file (the file itself is left untouched). */
+  async disconnectVault(): Promise<void> {
+    await this.vault.unlink();
+  }
+
+  // --- manual export / import ----------------------------------------------
+
+  /** Raw bytes of the current database, for a manual download. */
+  exportBytes(): Uint8Array {
+    return this.db.export();
+  }
+
+  /** Replace the database with an uploaded `.sqlite` file's bytes. */
+  async importBytes(bytes: Uint8Array): Promise<void> {
+    this.loadBytes(bytes);
+    await this.persistNow();
+  }
+
+  private loadBytes(bytes: Uint8Array): void {
+    try {
+      this.db.close();
+    } catch {
+      /* nothing open */
+    }
+    this.db = new this.sql.Database(bytes);
+    this.runMigrations();
+    this.db.run('PRAGMA foreign_keys = ON;');
+  }
+
   private schedulePersist(): void {
     if (this.persistTimer) clearTimeout(this.persistTimer);
     this.persistTimer = setTimeout(() => void this.persistNow(), 200);
@@ -207,6 +308,13 @@ export class SqliteService {
       // app still works in-memory for the session; just warn.
       console.warn('LifeOS: could not persist database to IndexedDB', err);
     }
+    if (this.vault.linked()) {
+      try {
+        await this.vault.writeBytes(bytes);
+      } catch (err) {
+        console.warn('LifeOS: could not write database to the linked file', err);
+      }
+    }
   }
 
   // --- IndexedDB helpers -------------------------------------------------------
@@ -214,7 +322,11 @@ export class SqliteService {
   private openIdb(): Promise<IDBDatabase> {
     return new Promise((resolve, reject) => {
       const req = indexedDB.open(IDB_NAME, 1);
-      req.onupgradeneeded = () => req.result.createObjectStore(IDB_STORE);
+      req.onupgradeneeded = () => {
+        if (!req.result.objectStoreNames.contains(IDB_STORE)) {
+          req.result.createObjectStore(IDB_STORE);
+        }
+      };
       req.onsuccess = () => resolve(req.result);
       req.onerror = () => reject(req.error);
     });
