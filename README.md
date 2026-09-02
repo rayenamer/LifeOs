@@ -1,5 +1,5 @@
 # LifeOS
-
+![alt text](image.png)
 A personal **behavioral feedback system**. 
 
 LifeOS translates lyour goals into controllable daily processes, measures

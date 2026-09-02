@@ -15,10 +15,6 @@ import { RouterLink } from '@angular/router';
           <span class="reveal d1">You don't control the outcome.</span>
           <span class="reveal d2">You control what you do today.</span>
         </h1>
-        <p class="sub reveal d3">
-          LifeOS turns long-term direction into daily processes, measures execution as feedback —
-          not reward — and adapts every week.
-        </p>
         <a routerLink="/app/months" class="enter reveal d4">
           ENTER LIFEOS <span class="arrow">→</span>
         </a>
