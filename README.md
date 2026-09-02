@@ -37,4 +37,4 @@ Your data lives in this browser by default. For a copy you own, open
 keeps `lifeos.sqlite` on disk in sync automatically) or **Export** it manually.
 Wipe everything from **Settings → Data → Reset system**.
 
-For a detailed explanation of the scientific foundations, research findings, and design rationale behind the system, see [`research.md`](./reasearch.md).
+For a detailed explanation of the scientific foundations, research findings, and design rationale behind the system, see [`research.md`](./reaseach.md).
