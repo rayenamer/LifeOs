@@ -37,16 +37,4 @@ Your data lives in this browser by default. For a copy you own, open
 keeps `lifeos.sqlite` on disk in sync automatically) or **Export** it manually.
 Wipe everything from **Settings → Data → Reset system**.
 
-
-## Key concepts
-
-| Rule | Where |
-| --- | --- |
-| Process weights must total exactly **100** per goal (save is blocked otherwise) | `GoalService.checkWeights`, Goal Wizard, Goal Detail editor |
-| Goal weights must total **100** per month — each goal is a share of the month, like a process is a share of its goal | Goal Wizard (month-weight step), Month Detail "Rebalance" panel |
-| Daily score 0–100 = Σ (goal day score × goal month-weight ÷ 100); goals with no weight (legacy data) are averaged equally | `ScoringService.dailyScore` |
-| Goal day score 0–100 = Σ (process weight × completion ratio) | `ScoringService.goalDayScore` |
-| Active day = score ≥ minimum viable day **or** a freeze day | `StreakService.isActiveDay` |
-| A missed day resets the current streak but never the longest or the history | `StreakService.compute` |
-| Freeze days protect consistency without faking completion (visibly distinct) | `ConsistencyService`, calendar heatmap |
-| Minimum viable day threshold is configurable (default 30) | Settings |
+get more detailled insights about the system and the science behind it 
