@@ -1,20 +1,14 @@
 # LifeOS
 
-A personal **behavioral feedback system**. Not a task manager, habit tracker, or
-gamified productivity app.
+A personal **behavioral feedback system**. 
 
-> You don't control the outcome. You control what you do today.
-
-LifeOS translates long-term direction into controllable daily processes, measures
-execution as **feedback — not reward**, and adapts every week:
+LifeOS translates lyour goals into controllable daily processes, measures
+execution  and adapts every week:
 
 ```
-Life Areas → Monthly Goals → Daily Processes → Daily Score
-          → Streak & Consistency → Weekly Reflection → System Improvement
+Monthly Goals → Daily Processes → Daily Score → Streak & Consistency → Weekly Reflection → System Improvement
 ```
 
-The daily score is information. **Data, not judgment. Consistency > perfection.**
-A missed day never erases history.
 
 ## Stack
 
@@ -27,11 +21,6 @@ A missed day never erases history.
   `lifeos.sqlite` file on your disk (File System Access API, Chromium/Brave) and
   every change is written there too — a portable, user-owned copy to back up or
   sync. Plus manual **Export / Import** in any browser.
-- **Chart.js + ng2-charts** for trend/bar charts; custom SVG for the calendar
-  heatmap and the month-detail radial constellation.
-- Clean repository / service architecture — all business rules
-  (`ScoringService`, `StreakService`, `ConsistencyService`, `GoalService`, …)
-  live outside the UI components and are unit-tested.
 
 ## Run
 
@@ -48,23 +37,6 @@ Your data lives in this browser by default. For a copy you own, open
 keeps `lifeos.sqlite` on disk in sync automatically) or **Export** it manually.
 Wipe everything from **Settings → Data → Reset system**.
 
-## Build
-
-```bash
-npm run build        # production bundle in dist/lifeos/
-```
-
-The `sql-wasm.wasm` binary is copied to the deploy root automatically
-(`angular.json` assets).
-
-## Test
-
-```bash
-npm test             # Karma + Jasmine (requires a local Chrome)
-```
-
-`ScoringService` and `StreakService` have full spec coverage of the scoring and
-streak rules.
 
 ## Key concepts
 
@@ -78,21 +50,3 @@ streak rules.
 | A missed day resets the current streak but never the longest or the history | `StreakService.compute` |
 | Freeze days protect consistency without faking completion (visibly distinct) | `ConsistencyService`, calendar heatmap |
 | Minimum viable day threshold is configurable (default 30) | Settings |
-
-## Structure
-
-```
-src/app/
-  core/
-    database/     sqlite.service, schema
-    repositories/ pure CRUD, one per entity
-    services/     scoring, streak, consistency, analytics, execution, goal, week, views, settings
-    models/       entities + view-models
-  shared/
-    components/   score-dial, weight-bar, process-row, streak-badge, radial-constellation,
-                  calendar-heatmap, trend-chart, bars-chart, empty-state, confirm-dialog
-    pipes/        scoreColor, monthName, ordinalDate, weekRange
-  shell/          app-shell (sidebar / tablet drawer / mobile bottom nav)
-  features/       entrance, home (months), month-detail, goal-detail, today,
-                  weekly-review, insights, monthly-review, goal-wizard, settings
-```
