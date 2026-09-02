@@ -53,11 +53,6 @@ export class SettingsService {
     this.bus.bump();
   }
 
-  markSeeded(): void {
-    this.repo.set('seeded', '1');
-    this._settings.update((s) => ({ ...s, seeded: true }));
-  }
-
   private applyAccent(hex: string): void {
     const el = document.documentElement;
     el.style.setProperty('--accent', hex);

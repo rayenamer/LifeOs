@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MaintenanceService } from '../../core/services/maintenance.service';
 import { SettingsService } from '../../core/services/settings.service';
 import { StateBus } from '../../core/services/state-bus.service';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog.component';
@@ -66,15 +65,6 @@ const ACCENTS = ['#00f0ff', '#7dff9b', '#ffd166', '#ff7ac6', '#9b8cff', '#ff6b57
 
     <section class="panel block danger-zone">
       <h2 class="section-title">DATA</h2>
-      @if (maintenance.hasDemoData()) {
-        <div class="data-row">
-          <div>
-            <span class="d-title">Demo data</span>
-            <p class="hint">Sample life areas and ~3 months of history, loaded on first launch.</p>
-          </div>
-          <button class="btn btn--danger" type="button" (click)="confirmDemo.set(true)">DELETE DEMO DATA</button>
-        </div>
-      }
       <div class="data-row">
         <div>
           <span class="d-title">Everything</span>
@@ -84,15 +74,6 @@ const ACCENTS = ['#00f0ff', '#7dff9b', '#ffd166', '#ff7ac6', '#9b8cff', '#ff6b57
       </div>
     </section>
 
-    <ui-confirm-dialog
-      [open]="confirmDemo()"
-      title="Delete demo data?"
-      message="The seeded life areas and their history will be removed. Anything you created yourself stays."
-      confirmLabel="DELETE DEMO"
-      [danger]="true"
-      (confirm)="deleteDemo()"
-      (cancel)="confirmDemo.set(false)"
-    />
     <ui-confirm-dialog
       [open]="confirmWipe()"
       title="Reset the entire system?"
@@ -142,12 +123,10 @@ const ACCENTS = ['#00f0ff', '#7dff9b', '#ffd166', '#ff7ac6', '#9b8cff', '#ff6b57
 })
 export class SettingsComponent {
   private settingsSvc = inject(SettingsService);
-  protected maintenance = inject(MaintenanceService);
   private bus = inject(StateBus);
   private router = inject(Router);
 
   readonly accents = ACCENTS;
-  readonly confirmDemo = signal(false);
   readonly confirmWipe = signal(false);
 
   readonly settings = computed(() => {
@@ -165,11 +144,6 @@ export class SettingsComponent {
 
   setFreeze(v: number): void {
     this.settingsSvc.setFreezeDaysAvailable(Number(v));
-  }
-
-  deleteDemo(): void {
-    this.maintenance.deleteDemoData();
-    this.confirmDemo.set(false);
   }
 
   async wipe(): Promise<void> {

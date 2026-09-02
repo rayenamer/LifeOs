@@ -35,9 +35,9 @@ npm install
 npm start            # http://localhost:4200
 ```
 
-On first launch the app seeds ~3 months of demo data (4 life areas, monthly
-goals, daily execution history, one weekly reflection). It is flagged as demo
-data and can be removed from **Settings → Data → Delete demo data**.
+The app starts empty. Create your first life area and monthly goal from the
+Goal Wizard (**+ NEW GOAL**). All data lives only in your browser; wipe it any
+time from **Settings → Data → Reset system**.
 
 ## Build
 
@@ -75,7 +75,7 @@ streak rules.
 ```
 src/app/
   core/
-    database/     sqlite.service, schema, seed.service
+    database/     sqlite.service, schema
     repositories/ pure CRUD, one per entity
     services/     scoring, streak, consistency, analytics, execution, goal, week, views, settings
     models/       entities + view-models

@@ -10,7 +10,6 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { routes } from './app.routes';
 import { SqliteService } from './core/database/sqlite.service';
-import { SeedService } from './core/database/seed.service';
 import { ConsistencyService } from './core/services/consistency.service';
 import { SettingsService } from './core/services/settings.service';
 
@@ -29,8 +28,6 @@ export const appConfig: ApplicationConfig = {
       const injector = inject(EnvironmentInjector);
       return (async () => {
         await injector.get(SqliteService).init();
-        injector.get(SettingsService).load();
-        injector.get(SeedService).ensureSeeded();
         injector.get(SettingsService).load();
         injector.get(ConsistencyService).refresh();
       })();

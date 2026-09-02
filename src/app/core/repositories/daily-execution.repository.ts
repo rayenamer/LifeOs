@@ -98,11 +98,4 @@ export class DailyExecutionRepository {
     );
     return rows.length > 0;
   }
-
-  /** Every distinct date that has at least one execution. */
-  distinctDates(): string[] {
-    return this.db
-      .query<SqlRow>('SELECT DISTINCT date FROM daily_execution ORDER BY date')
-      .map((r) => str(r, 'date'));
-  }
 }
