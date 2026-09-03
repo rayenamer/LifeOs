@@ -1,0 +1,316 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 73,
+    "filesWithImports": 45,
+    "totalEdges": 188
+  },
+  "importMap": {
+    ".Rhistory": [],
+    ".ua/.understandignore": [],
+    ".ua/config.json": [],
+    "README.md": [],
+    "angular.json": [],
+    "continue.md": [],
+    "package.json": [],
+    "reaseach.md": [],
+    "src/app/app.component.ts": [],
+    "src/app/app.config.ts": [
+      "src/app/app.routes.ts",
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/services/consistency.service.ts",
+      "src/app/core/services/settings.service.ts"
+    ],
+    "src/app/app.routes.ts": [],
+    "src/app/core/database/file-vault.service.ts": [],
+    "src/app/core/database/schema.ts": [],
+    "src/app/core/database/sqlite.service.ts": [
+      "src/app/core/database/file-vault.service.ts",
+      "src/app/core/database/schema.ts"
+    ],
+    "src/app/core/models/entities.ts": [],
+    "src/app/core/models/index.ts": [],
+    "src/app/core/models/view-models.ts": [
+      "src/app/core/models/entities.ts"
+    ],
+    "src/app/core/repositories/daily-execution.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts",
+      "src/app/core/util/id.ts",
+      "src/app/core/util/row.ts"
+    ],
+    "src/app/core/repositories/daily-score.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts",
+      "src/app/core/util/id.ts",
+      "src/app/core/util/row.ts"
+    ],
+    "src/app/core/repositories/life-area.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts",
+      "src/app/core/util/id.ts",
+      "src/app/core/util/row.ts"
+    ],
+    "src/app/core/repositories/monthly-goal.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts",
+      "src/app/core/util/id.ts",
+      "src/app/core/util/row.ts"
+    ],
+    "src/app/core/repositories/process.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts",
+      "src/app/core/util/id.ts",
+      "src/app/core/util/row.ts"
+    ],
+    "src/app/core/repositories/settings.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts"
+    ],
+    "src/app/core/repositories/streak.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts",
+      "src/app/core/util/row.ts"
+    ],
+    "src/app/core/repositories/weekly-reflection.repository.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts",
+      "src/app/core/util/id.ts",
+      "src/app/core/util/row.ts"
+    ],
+    "src/app/core/services/analytics.service.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/repositories/daily-execution.repository.ts",
+      "src/app/core/repositories/daily-score.repository.ts",
+      "src/app/core/repositories/life-area.repository.ts",
+      "src/app/core/repositories/monthly-goal.repository.ts",
+      "src/app/core/repositories/process.repository.ts",
+      "src/app/core/repositories/streak.repository.ts",
+      "src/app/core/services/scoring.service.ts",
+      "src/app/core/services/settings.service.ts",
+      "src/app/core/services/streak.service.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/core/services/consistency.service.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/repositories/daily-score.repository.ts",
+      "src/app/core/repositories/streak.repository.ts",
+      "src/app/core/services/settings.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/services/streak.service.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/core/services/execution.service.ts": [
+      "src/app/core/repositories/daily-execution.repository.ts",
+      "src/app/core/repositories/daily-score.repository.ts",
+      "src/app/core/repositories/monthly-goal.repository.ts",
+      "src/app/core/repositories/process.repository.ts",
+      "src/app/core/services/consistency.service.ts",
+      "src/app/core/services/scoring.service.ts",
+      "src/app/core/services/settings.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/core/services/goal.service.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/repositories/daily-execution.repository.ts",
+      "src/app/core/repositories/life-area.repository.ts",
+      "src/app/core/repositories/monthly-goal.repository.ts",
+      "src/app/core/repositories/process.repository.ts",
+      "src/app/core/services/execution.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/core/services/scoring.service.spec.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/services/scoring.service.ts"
+    ],
+    "src/app/core/services/scoring.service.ts": [
+      "src/app/core/models/index.ts"
+    ],
+    "src/app/core/services/settings.service.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/models/index.ts",
+      "src/app/core/repositories/settings.repository.ts",
+      "src/app/core/repositories/streak.repository.ts",
+      "src/app/core/services/state-bus.service.ts"
+    ],
+    "src/app/core/services/state-bus.service.ts": [],
+    "src/app/core/services/streak.service.spec.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/services/streak.service.ts"
+    ],
+    "src/app/core/services/streak.service.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/core/services/views.service.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/repositories/daily-execution.repository.ts",
+      "src/app/core/repositories/daily-score.repository.ts",
+      "src/app/core/repositories/life-area.repository.ts",
+      "src/app/core/repositories/monthly-goal.repository.ts",
+      "src/app/core/repositories/process.repository.ts",
+      "src/app/core/services/analytics.service.ts",
+      "src/app/core/services/scoring.service.ts",
+      "src/app/core/services/settings.service.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/core/services/week.service.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/repositories/daily-score.repository.ts",
+      "src/app/core/repositories/weekly-reflection.repository.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/core/util/date.ts": [
+      "src/app/core/models/index.ts"
+    ],
+    "src/app/core/util/id.ts": [],
+    "src/app/core/util/row.ts": [
+      "src/app/core/database/sqlite.service.ts"
+    ],
+    "src/app/features/entrance/entrance.component.ts": [],
+    "src/app/features/goal-detail/goal-detail.component.ts": [
+      "src/app/core/services/execution.service.ts",
+      "src/app/core/services/goal.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/services/views.service.ts",
+      "src/app/core/util/date.ts",
+      "src/app/shared/components/empty-state.component.ts",
+      "src/app/shared/components/process-row.component.ts",
+      "src/app/shared/components/score-dial.component.ts"
+    ],
+    "src/app/features/goal-wizard/goal-wizard.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/services/goal.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/util/date.ts",
+      "src/app/shared/components/weight-bar.component.ts"
+    ],
+    "src/app/features/home/home.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/services/analytics.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/shared/components/empty-state.component.ts",
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/features/insights/insights.component.ts": [
+      "src/app/core/services/analytics.service.ts",
+      "src/app/core/services/consistency.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/shared/components/bars-chart.component.ts",
+      "src/app/shared/components/calendar-heatmap.component.ts",
+      "src/app/shared/components/empty-state.component.ts",
+      "src/app/shared/components/streak-badge.component.ts",
+      "src/app/shared/components/trend-chart.component.ts"
+    ],
+    "src/app/features/month-detail/month-detail.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/services/analytics.service.ts",
+      "src/app/core/services/goal.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/services/views.service.ts",
+      "src/app/core/util/date.ts",
+      "src/app/shared/components/empty-state.component.ts",
+      "src/app/shared/components/radial-constellation.component.ts",
+      "src/app/shared/components/weight-bar.component.ts",
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/features/monthly-review/monthly-review.component.ts": [
+      "src/app/core/services/analytics.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/util/date.ts",
+      "src/app/shared/components/bars-chart.component.ts",
+      "src/app/shared/components/empty-state.component.ts",
+      "src/app/shared/components/score-dial.component.ts",
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/features/settings/settings.component.ts": [
+      "src/app/core/database/sqlite.service.ts",
+      "src/app/core/services/settings.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/shared/components/confirm-dialog.component.ts"
+    ],
+    "src/app/features/today/today.component.ts": [
+      "src/app/core/services/execution.service.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/services/views.service.ts",
+      "src/app/core/util/date.ts",
+      "src/app/shared/components/empty-state.component.ts",
+      "src/app/shared/components/process-row.component.ts",
+      "src/app/shared/components/score-dial.component.ts"
+    ],
+    "src/app/features/weekly-review/weekly-review-list.component.ts": [
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/services/week.service.ts",
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/features/weekly-review/weekly-review.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/services/state-bus.service.ts",
+      "src/app/core/services/week.service.ts",
+      "src/app/core/util/date.ts",
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/shared/components/bars-chart.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/shared/components/calendar-heatmap.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/shared/components/confirm-dialog.component.ts": [],
+    "src/app/shared/components/empty-state.component.ts": [],
+    "src/app/shared/components/process-row.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/shared/components/weight-bar.component.ts"
+    ],
+    "src/app/shared/components/radial-constellation.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/shared/components/score-dial.component.ts": [
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/shared/components/streak-badge.component.ts": [
+      "src/app/core/models/index.ts"
+    ],
+    "src/app/shared/components/trend-chart.component.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/shared/components/weight-bar.component.ts": [
+      "src/app/shared/pipes/pipes.ts"
+    ],
+    "src/app/shared/pipes/pipes.ts": [
+      "src/app/core/models/index.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/app/shell/app-shell.component.scss": [],
+    "src/app/shell/app-shell.component.ts": [
+      "src/app/core/services/consistency.service.ts",
+      "src/app/core/util/date.ts"
+    ],
+    "src/index.html": [],
+    "src/main.ts": [
+      "src/app/app.component.ts",
+      "src/app/app.config.ts"
+    ],
+    "src/styles.scss": [],
+    "src/styles/_base.scss": [],
+    "src/styles/_fonts.scss": [],
+    "src/styles/_tokens.scss": [],
+    "tsconfig.app.json": [],
+    "tsconfig.json": [],
+    "tsconfig.spec.json": []
+  }
+}
