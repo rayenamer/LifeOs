@@ -59,7 +59,7 @@ export interface TodayAreaGroup {
   area: LifeArea;
   goal: MonthlyGoal;
   rows: ProcessExecutionRow[];
-  areaScore: number; // 0..100 today
+  areaScore: number; // 0..100 — this goal's own execution today
 }
 
 export interface TodayView {

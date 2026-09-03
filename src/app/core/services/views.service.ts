@@ -48,6 +48,36 @@ export class ViewsService {
     });
   }
 
+  /**
+   * Same nodes as {@link goalNodes} but the ring shows TODAY's execution rather
+   * than the month-to-date score. Sorted by share of the month (biggest first),
+   * matching the Today list. Inner dot = share of the goal's processes fully
+   * done today.
+   */
+  todayNodes(date = today()): GoalNode[] {
+    const mk = monthOf(date);
+    const dayExecs = this.execs.forDate(date);
+    const goals = this.goals.forMonth(mk);
+    return goals
+      .map((goal) => {
+        const area = this.areas.byId(goal.lifeAreaId)!;
+        const procs = this.processes.forGoal(goal.id, true);
+        const todayScore = this.scoring.goalDayScore(procs, dayExecs);
+        const done = procs.filter((p) => {
+          const e = dayExecs.find((x) => x.processId === p.id) ?? null;
+          return this.scoring.completionRatio(p, e) >= 0.999;
+        }).length;
+        return {
+          goal,
+          area,
+          score: todayScore,
+          processCount: procs.length,
+          todayCompletion: procs.length ? done / procs.length : 0,
+        };
+      })
+      .sort((a, b) => b.goal.weight - a.goal.weight || a.goal.title.localeCompare(b.goal.title));
+  }
+
   // --- goal detail -----------------------------------------------------
 
   goalDetail(goalId: string): GoalDetailView | null {
@@ -72,27 +102,34 @@ export class ViewsService {
     const mk = monthOf(date);
     const goals = this.goals.forMonth(mk);
     const dayScore = this.scores.forDate(date);
+    const dayExecs = this.execs.forDate(date);
     const mvd = this.settings.minimumViableDay();
 
-    const groups: TodayAreaGroup[] = goals.map((goal) => {
+    const inputs = goals.map((goal) => ({
+      processes: this.processes.forGoal(goal.id, true),
+      executions: dayExecs,
+      weight: goal.weight,
+    }));
+
+    const groups: TodayAreaGroup[] = goals.map((goal, i) => {
       const area = this.areas.byId(goal.lifeAreaId)!;
-      const procs = this.processes.forGoal(goal.id, true);
+      const procs = inputs[i].processes;
       const rows = procs.map((p) => this.processRow(p, date, mk));
       return {
         area,
         goal,
         rows,
-        areaScore: this.scoring.goalDayScore(procs, this.execs.forDate(date)),
+        areaScore: this.scoring.goalDayScore(procs, dayExecs),
       };
     });
 
-    const score = dayScore?.score ?? this.scoring.dailyScore(
-      groups.map((g) => ({
-        processes: this.processes.forGoal(g.goal.id, true),
-        executions: this.execs.forDate(date),
-        weight: g.goal.weight,
-      })),
+    // Fixed priority: biggest share of the month first. The order never shifts
+    // during the day, so you always know which goal to execute first.
+    groups.sort(
+      (a, b) => b.goal.weight - a.goal.weight || a.goal.title.localeCompare(b.goal.title),
     );
+
+    const score = dayScore?.score ?? this.scoring.dailyScore(inputs);
 
     return {
       date,
