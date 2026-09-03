@@ -48,36 +48,6 @@ export class ViewsService {
     });
   }
 
-  /**
-   * Same nodes as {@link goalNodes} but the ring shows TODAY's execution rather
-   * than the month-to-date score. Sorted by share of the month (biggest first),
-   * matching the Today list. Inner dot = share of the goal's processes fully
-   * done today.
-   */
-  todayNodes(date = today()): GoalNode[] {
-    const mk = monthOf(date);
-    const dayExecs = this.execs.forDate(date);
-    const goals = this.goals.forMonth(mk);
-    return goals
-      .map((goal) => {
-        const area = this.areas.byId(goal.lifeAreaId)!;
-        const procs = this.processes.forGoal(goal.id, true);
-        const todayScore = this.scoring.goalDayScore(procs, dayExecs);
-        const done = procs.filter((p) => {
-          const e = dayExecs.find((x) => x.processId === p.id) ?? null;
-          return this.scoring.completionRatio(p, e) >= 0.999;
-        }).length;
-        return {
-          goal,
-          area,
-          score: todayScore,
-          processCount: procs.length,
-          todayCompletion: procs.length ? done / procs.length : 0,
-        };
-      })
-      .sort((a, b) => b.goal.weight - a.goal.weight || a.goal.title.localeCompare(b.goal.title));
-  }
-
   // --- goal detail -----------------------------------------------------
 
   goalDetail(goalId: string): GoalDetailView | null {

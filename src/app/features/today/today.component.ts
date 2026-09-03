@@ -1,32 +1,23 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { GoalNode } from '../../core/models';
+import { RouterLink } from '@angular/router';
 import { ExecutionService } from '../../core/services/execution.service';
 import { StateBus } from '../../core/services/state-bus.service';
 import { ViewsService } from '../../core/services/views.service';
 import { MONTH_NAMES, WEEKDAY_NAMES, ordinal, parseIso, today } from '../../core/util/date';
 import { EmptyStateComponent } from '../../shared/components/empty-state.component';
 import { ProcessRowComponent } from '../../shared/components/process-row.component';
-import { RadialConstellationComponent } from '../../shared/components/radial-constellation.component';
 import { ScoreDialComponent } from '../../shared/components/score-dial.component';
 
 @Component({
   selector: 'app-today',
   standalone: true,
-  imports: [
-    RouterLink,
-    ProcessRowComponent,
-    ScoreDialComponent,
-    RadialConstellationComponent,
-    EmptyStateComponent,
-  ],
+  imports: [RouterLink, ProcessRowComponent, ScoreDialComponent, EmptyStateComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="head">
       <div>
         <span class="eyebrow">{{ weekday() }} · {{ dateLabel() }}</span>
         <h1>Today</h1>
-        <p class="lede">Execute the process. The score updates as you go — it's feedback, not a verdict.</p>
       </div>
       <div class="score">
         <ui-score-dial [score]="view().score" [size]="132" label="Day score" />
@@ -51,52 +42,36 @@ import { ScoreDialComponent } from '../../shared/components/score-dial.component
         actionLink="/app/goals/new"
       />
     } @else {
-      <div class="layout">
-        <aside class="overview panel">
-          <span class="ov-title mono">TODAY · ADVANCEMENT</span>
-          <ui-radial-constellation
-            [nodes]="nodes()"
-            centerLabel="TODAY"
-            [centerScore]="view().score"
-            (pick)="openGoal($event)"
-          />
-          <p class="ov-hint mono">RING = TODAY'S SCORE · INNER DOT = PROCESSES DONE</p>
-        </aside>
-
-        <div class="areas-wrap">
-          <span class="areas-cap mono">GOALS · BIGGEST SHARE OF THE MONTH FIRST — START HERE</span>
-          <div class="areas">
-          @for (group of view().groups; track group.goal.id) {
-            @if (group.rows.length) {
-              <section class="area panel">
-                <div class="area-head">
-                  <div class="area-id">
-                    <span class="area-name mono">{{ group.area.name.toUpperCase() }}</span>
-                    <span class="goal-title">{{ group.goal.title }}</span>
-                  </div>
-                  <a
-                    class="area-score mono"
-                    [class.zero]="group.areaScore === 0"
-                    [routerLink]="['/app/months', group.goal.year, group.goal.month, 'goal', group.goal.id]"
-                  >
-                    <span class="as-share">SHARE {{ group.goal.weight }}</span>
-                    <span class="as-num">{{ group.areaScore }}</span>
-                  </a>
+      <div class="areas">
+        @for (group of view().groups; track group.goal.id) {
+          @if (group.rows.length) {
+            <section class="area panel">
+              <div class="area-head">
+                <div class="area-id">
+                  <span class="area-name mono">{{ group.area.name.toUpperCase() }}</span>
+                  <span class="goal-title">{{ group.goal.title }}</span>
                 </div>
-                @for (row of group.rows; track row.process.id) {
-                  <ui-process-row
-                    [row]="row"
-                    (toggle)="toggle(row.process.id)"
-                    (setValue)="setValue(row.process.id, $event)"
-                  />
-                }
-              </section>
-            }
+                <a
+                  class="area-score mono"
+                  [class.zero]="group.areaScore === 0"
+                  [routerLink]="['/app/months', group.goal.year, group.goal.month, 'goal', group.goal.id]"
+                >
+                  <span class="as-share">SHARE {{ group.goal.weight }}</span>
+                  <span class="as-num">{{ group.areaScore }}</span>
+                </a>
+              </div>
+              @for (row of group.rows; track row.process.id) {
+                <ui-process-row
+                  [row]="row"
+                  (toggle)="toggle(row.process.id)"
+                  (setValue)="setValue(row.process.id, $event)"
+                />
+              }
+            </section>
           }
-          </div>
-        </div>
+        }
       </div>
-      <p class="reassurance mono">CONSISTENCY &gt; PERFECTION — a partial day still counts.</p>
+      <p class="reassurance mono">CONSISTENCY &gt; PERFECTION ; a partial day still counts.</p>
     }
   `,
   styles: [
@@ -124,37 +99,12 @@ import { ScoreDialComponent } from '../../shared/components/score-dial.component
       .badge.ok { color: var(--score-high); border-color: var(--score-high); }
       .badge.freeze { color: var(--freeze); border-color: var(--freeze); }
 
-      .layout {
-        display: grid;
-        grid-template-columns: minmax(320px, 380px) 1fr;
-        gap: var(--s-5);
-        align-items: start;
-      }
-      .overview {
-        position: sticky;
-        top: var(--s-4);
-        display: flex;
-        flex-direction: column;
-        gap: var(--s-4);
-        padding: var(--s-5) var(--s-5) var(--s-4);
-      }
-      .ov-title {
-        font-size: 10px;
-        letter-spacing: 0.18em;
-        color: var(--text-2);
-      }
-      .ov-hint {
-        font-size: 9px;
-        letter-spacing: 0.1em;
-        color: var(--text-3);
-        text-align: center;
-      }
-
-      .areas-wrap { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
       .areas-cap {
+        display: block;
         font-size: 10px;
         letter-spacing: 0.16em;
         color: var(--text-2);
+        margin-bottom: var(--s-3);
       }
       .areas {
         display: grid;
@@ -222,13 +172,8 @@ import { ScoreDialComponent } from '../../shared/components/score-dial.component
           margin-inline: calc((100% - var(--today-w)) / 2);
         }
       }
-      @media (max-width: 1500px) {
+      @media (max-width: 1200px) {
         .areas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      }
-      @media (max-width: 1100px) {
-        .layout { grid-template-columns: 1fr; }
-        .overview { position: static; align-items: center; }
-        .overview ui-radial-constellation { max-width: 440px; width: 100%; }
       }
       @media (max-width: 760px) {
         .areas { grid-template-columns: 1fr; }
@@ -244,18 +189,12 @@ export class TodayComponent {
   private views = inject(ViewsService);
   private execution = inject(ExecutionService);
   private bus = inject(StateBus);
-  private router = inject(Router);
 
   private readonly date = today();
 
   readonly view = computed(() => {
     this.bus.revision();
     return this.views.todayView(this.date);
-  });
-
-  readonly nodes = computed(() => {
-    this.bus.revision();
-    return this.views.todayNodes(this.date);
   });
 
   readonly weekday = computed(() => WEEKDAY_NAMES[parseIso(this.date).getDay()].toUpperCase());
@@ -270,15 +209,5 @@ export class TodayComponent {
 
   setValue(processId: string, value: number): void {
     this.execution.setActualValue(processId, this.date, value);
-  }
-
-  openGoal(node: GoalNode): void {
-    void this.router.navigate([
-      '/app/months',
-      node.goal.year,
-      node.goal.month,
-      'goal',
-      node.goal.id,
-    ]);
   }
 }
