@@ -1,41 +1,47 @@
-# LifeOS
-![alt text](image.png)
+# LifeOS (React)
 
-A personal **behavioral feedback system**. 
-
-LifeOS translates lyour goals into controllable daily processes, measures
-execution  and adapts every week:
+A playful remake of LifeOS, the personal behavioural feedback system. The concept and the data are the same; the interface is new.
 
 ```
 Monthly Goals → Daily Processes → Daily Score → Streak & Consistency → Weekly Reflection → System Improvement
 ```
 
-
 ## Stack
 
-- **Angular 19**, standalone components, signals, Angular Router, Reactive Forms
-- **SQLite in the browser** via `sql.js` (WebAssembly) — the real SQLite engine
-  running in the tab. The whole database is serialised to a byte array and
-  written to **IndexedDB** after every mutation, so a refresh or restart never
-  loses data. No server — deployable as a static site.
-- **Data vault** (Settings → Data vault): link the database to a real
-  `lifeos.sqlite` file on your disk (File System Access API, Chromium/Brave) and
-  every change is written there too — a portable, user-owned copy to back up or
-  sync. Plus manual **Export / Import** in any browser.
+- **React 19 + Vite + TypeScript**, React Router, Framer Motion, canvas-confetti
+- **SQLite** via `sql.js` (WebAssembly) running in the page, saved to **`data/lifeos.sqlite`** in this folder
+  by a tiny dependency-free Node server (`server.mjs`, localhost only). It's an ordinary SQLite file you can copy, back up, or open with any SQLite tool.
+- Before the first save of each day the previous file is copied to `data/backups/` (30 days kept), and again before any import or reset.
 
 ## Run
 
 ```bash
-npm install
-npm start            # http://localhost:4200
+./start.sh            # installs/builds when needed, serves http://localhost:4300, opens the browser
+./start.sh --dev      # hot-reloading dev server (also saves to data/lifeos.sqlite)
+npm test              # scoring/streak rules, import + migration, every screen renders, click behaviour
 ```
 
-The app starts empty. Create your first life area and monthly goal from the
-Goal Wizard (**+ NEW GOAL**).
+Options: `PORT=5000 ./start.sh`, `NO_OPEN=1 ./start.sh`, `LIFEOS_DATA=/some/folder ./start.sh` (store the database elsewhere).
 
-Your data lives in this browser by default. For a copy you own, open
-**Settings → Data vault** and either **Save my data to a file…** (Brave / Chrome —
-keeps `lifeos.sqlite` on disk in sync automatically) or **Export** it manually.
-Wipe everything from **Settings → Data → Reset system**.
+## Bringing your data over
 
-For a detailed explanation of the scientific foundations, research findings, and design rationale behind the system, see [`research.md`](./reaseach.md).
+The schema is **identical** to the Angular LifeOS (v3, same tables, same columns), so files move both ways without loss.
+
+1. In the original app: **Settings → Data vault → Export** (downloads `lifeos-YYYY-MM-DD.sqlite`).
+2. In this app: drop that file on the welcome screen, or go to **Settings → Import & export**.
+   You'll see what's inside (areas, goals, check-ins, reflections) before anything is replaced.
+
+Older exports (schema v1/v2) are migrated automatically. If you already have a `lifeos.sqlite` vault file from the Angular app, you can also just copy it to `data/lifeos.sqlite` while the app is stopped.
+
+## What's the same
+
+- Process contribution = weight × completion ratio. Process weights in a goal sum to 100. Goal weights in a month sum to 100.
+- Daily score = goal scores weighted by their share of the month (legacy goals with no weight are averaged equally).
+- Minimum viable day, freeze days, and a streak that never erases history.
+- Weekly reflection with action items carried week to week; monthly review.
+
+## What's new
+
+- **Today as a quest board**: tap a card to complete a process; quantitative processes use a stepper. Sparkles appear when you complete one, confetti when the day is secured, fireworks at 100.
+- Notes per check-in, back-filling past days, and a **freeze** button (both were already in the data model).
+- Icons and colours per life area, a monthly calendar, a "month wrapped" review, light/dark/auto theme.
