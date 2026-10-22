@@ -8,7 +8,7 @@ import { consistency } from '../core/services';
 import { streakRepo } from '../core/repos';
 import { addDays, MONTH_NAMES, parseIso, today, WEEKDAY_NAMES } from '../core/date';
 import { scoring } from '../core/scoring';
-import { BandChip, Empty, Ring, StreakFlame, useToast } from '../ui/components';
+import { BandChip, Empty, Pv, Ring, StreakFlame, useToast } from '../ui/components';
 import { ProcessCard } from '../ui/ProcessCard';
 import { AreaBadge, areaColor } from '../ui/areas';
 import { celebrate, fireworks } from '../ui/fx';
@@ -135,8 +135,8 @@ export function Today() {
               <Link className="quest-head" to={`/months/${g.goal.year}/${g.goal.month}/goal/${g.goal.id}`}>
                 <AreaBadge area={g.area} />
                 <div className="quest-title">
-                  <small>{g.area.name}{g.goal.weight ? ` · ${g.goal.weight}% of the month` : ''}</small>
-                  <b>{g.goal.title}</b>
+                  <small><Pv>{g.area.name}</Pv>{g.goal.weight ? ` · ${g.goal.weight}% of the month` : ''}</small>
+                  <b><Pv>{g.goal.title}</Pv></b>
                 </div>
                 <Ring value={g.areaScore} size={48} stroke={6} color={color}>
                   <small className="mini-num">{g.areaScore}</small>

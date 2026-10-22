@@ -160,13 +160,20 @@ export const analytics = {
     const streak = streakCalc.compute(allScores, mvd);
     const cur = currentMonth();
     const scoreByProcess = analytics.processScoresForMonth(cur).sort((a, b) => b.score - a.score);
-    const weekStart = weekStartOf(today());
+    const first = past[0]?.date ?? null;
+    const scoreOn = new Map(past.map((s) => [s.date, s.score]));
+    // Mean over every day of the period so far, today included; unlogged days count as 0.
+    const avgSince = (start: string): number =>
+      first ? mean(dateRange(start > first ? start : first, today()).map((d) => scoreOn.get(d) ?? 0)) : 0;
 
     return {
-      avgDaily: mean(past.map((s) => s.score)),
-      weeklyAvg: mean(past.filter((s) => s.date >= weekStart).map((s) => s.score)),
-      monthlyAvg: analytics.monthMeanScore(cur, allScores),
-      ...processExecutionStats(),
+      avgDaily: first ? avgSince(first) : 0,
+      weeklyAvg: avgSince(weekStartOf(today())),
+      monthlyAvg: avgSince(monthStart(cur.year, cur.month)),
+      avg7: avgSince(addDays(today(), -6)),
+      avg30: avgSince(addDays(today(), -29)),
+      perfectDaysThisMonth: past.filter((s) => s.date >= monthStart(cur.year, cur.month) && s.score >= 100).length,
+      ...processExecutionStats(first),
       currentStreak: streak.currentStreak,
       longestStreak: Math.max(streak.longestStreak, streakRepo.get().longestStreak),
       activeDays: streak.activeDays,
@@ -295,23 +302,43 @@ function processMonthScore(p: Process, days: string[]): number {
   return Math.round((days.reduce((s, d) => s + scoring.completionRatio(p, byDate.get(d)), 0) / days.length) * 100);
 }
 
-function processExecutionStats(): { processCompletionRate: number; processConsistency: number } {
-  const start = addDays(today(), -29);
-  const goalIds = goalRepo.distinctMonths().flatMap((mk) => goalRepo.forMonth(mk)).map((g) => g.id);
-  const procs = processRepo.forGoals([...new Set(goalIds)], true);
-  if (!procs.length) return { processCompletionRate: 0, processConsistency: 0 };
-  const byProcess = new Map<string, DailyExecution[]>();
-  for (const e of execRepo.forProcessesInRange(procs.map((p) => p.id), start, today())) {
-    byProcess.set(e.processId, [...(byProcess.get(e.processId) ?? []), e]);
+/**
+ * Last 30 finished days (today excluded, nothing before the first logged day).
+ * Each day is judged against the processes of *its own* month's goals.
+ *  - completion rate: fully-done process-days / scheduled process-days
+ *  - consistency:     days with any progress / days that had processes scheduled
+ */
+function processExecutionStats(first: string | null): { processCompletionRate: number; processConsistency: number } {
+  const zero = { processCompletionRate: 0, processConsistency: 0 };
+  const end = addDays(today(), -1);
+  const windowStart = addDays(today(), -30);
+  const start = first && first > windowStart ? first : windowStart;
+  if (!first || start > end) return zero;
+  const days = dateRange(start, end);
+
+  const procsByMonth = new Map<string, Process[]>();
+  for (const d of days) {
+    const mk = monthOf(d);
+    const key = `${mk.year}-${mk.month}`;
+    if (!procsByMonth.has(key)) procsByMonth.set(key, processRepo.forGoals(goalRepo.forMonth(mk).map((g) => g.id), true));
   }
-  const per = procs.map((p) => {
-    const list = byProcess.get(p.id) ?? [];
-    const done = list.filter((e) => scoring.completionRatio(p, e) >= 0.999).length;
-    return { rate: list.length ? done / list.length : 0, consistency: Math.min(1, list.length / 30) };
-  });
+  const allIds = [...procsByMonth.values()].flat().map((p) => p.id);
+  const execs = new Map(execRepo.forProcessesInRange(allIds, start, end).map((e) => [`${e.processId}|${e.date}`, e]));
+
+  let scheduled = 0, done = 0, plannedDays = 0, engagedDays = 0;
+  for (const d of days) {
+    const mk = monthOf(d);
+    const procs = procsByMonth.get(`${mk.year}-${mk.month}`) ?? [];
+    if (!procs.length) continue;
+    const ratios = procs.map((p) => scoring.completionRatio(p, execs.get(`${p.id}|${d}`)));
+    scheduled += procs.length;
+    done += ratios.filter((r) => r >= 0.999).length;
+    plannedDays++;
+    if (ratios.some((r) => r > 0)) engagedDays++;
+  }
   return {
-    processCompletionRate: mean(per.map((x) => x.rate * 100)),
-    processConsistency: mean(per.map((x) => x.consistency * 100)),
+    processCompletionRate: scheduled ? Math.round((done / scheduled) * 100) : 0,
+    processConsistency: plannedDays ? Math.round((engagedDays / plannedDays) * 100) : 0,
   };
 }
 

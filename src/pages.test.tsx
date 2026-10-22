@@ -141,3 +141,18 @@ describe('daily score chart', () => {
     expect(screen.getAllByRole('row').length).toBeGreaterThan(2);
   });
 });
+
+describe('private mode', () => {
+  it('hides personal text but keeps the scores', async () => {
+    const { privacy } = await import('./core/privacy');
+    renderAt('/');
+    expect(await screen.findByText('Get fit')).toBeTruthy();
+    fireEvent.click(screen.getAllByRole('button', { name: 'Private mode' })[0]);
+    expect(screen.queryByText('Get fit')).toBeNull();
+    expect(screen.queryByText('Run')).toBeNull();
+    expect(screen.getAllByRole('img', { name: 'Hidden' }).length).toBeGreaterThan(0);
+    expect(document.documentElement.hasAttribute('data-private')).toBe(true);
+    privacy.set(false);
+    expect(await screen.findByText('Get fit')).toBeTruthy();
+  });
+});

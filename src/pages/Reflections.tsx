@@ -6,7 +6,7 @@ import { weeks } from '../core/services';
 import type { ActionItemStatus } from '../core/models';
 import { shortDate, weekEndOf, isoWeekNumber } from '../core/date';
 import { ArrowLeft, Check, CircleDashed, CornerDownRight, ListTodo, Plus, RotateCcw, Save, Sparkles, Wrench, X, CloudRain } from 'lucide-react';
-import { Ring, useToast } from '../ui/components';
+import { Pv, Ring, useToast } from '../ui/components';
 import { celebrate } from '../ui/fx';
 
 export function Reflections() {
@@ -99,7 +99,7 @@ export function Reflection() {
           <ul className="items">
             {previous.map((it) => (
               <li key={it.id} className={`item ${it.status}`}>
-                <span className="grow">{it.text}</span>
+                <span className="grow"><Pv>{it.text}</Pv></span>
                 <button
                   type="button"
                   className="btn small ghost"

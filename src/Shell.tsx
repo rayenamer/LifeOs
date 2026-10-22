@@ -1,7 +1,8 @@
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BarChart3, CalendarDays, HardDrive, HardDriveDownload, LucideIcon, NotebookPen, Plus, Settings, Sun } from 'lucide-react';
+import { BarChart3, CalendarDays, Eye, EyeOff, HardDrive, HardDriveDownload, LucideIcon, NotebookPen, Plus, Settings, Sun } from 'lucide-react';
 import { useDb, useDisk } from './core/store';
+import { privacy, usePrivate } from './core/privacy';
 import { areaRepo, streakRepo } from './core/repos';
 import { FreezeIcon, StreakFlame } from './ui/components';
 
@@ -17,6 +18,12 @@ export function Shell() {
   const location = useLocation();
   const { empty, streak } = useDb(() => ({ empty: areaRepo.all().length === 0, streak: streakRepo.get() }));
   const d = useDisk();
+  const hidden = usePrivate();
+  const privateToggle = {
+    onClick: privacy.toggle,
+    'aria-pressed': hidden,
+    title: hidden ? 'Private mode is on — show personal text' : 'Private mode: hide personal text, keep the numbers',
+  };
 
   // First run with nothing in the database → onboarding (start fresh or import).
   if (empty && !sessionGet('onboarded') && location.pathname === '/') return <Navigate to="/welcome" replace />;
@@ -27,6 +34,9 @@ export function Shell() {
         <div className="brand">
           <span className="brand-mark" />
           <span className="brand-name">LifeOS</span>
+          <button type="button" className={`privacy-btn ${hidden ? 'on' : ''}`} {...privateToggle} aria-label="Private mode">
+            {hidden ? <EyeOff size={17} /> : <Eye size={17} />}
+          </button>
         </div>
         <nav className="nav">
           {NAV.map(({ to, label, icon: Icon, end }) => (
@@ -56,6 +66,9 @@ export function Shell() {
         </div>
       </aside>
 
+      <button type="button" className={`mobile-gear mobile-privacy ${hidden ? 'on' : ''}`} {...privateToggle} aria-label="Private mode">
+        {hidden ? <EyeOff size={19} /> : <Eye size={19} />}
+      </button>
       <NavLink to="/settings" className="mobile-gear" aria-label="Settings">
         <Settings size={19} />
       </NavLink>

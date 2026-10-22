@@ -162,7 +162,7 @@ export function Settings() {
         message={
           <div className="stack">
             <p>Type <b>RESET</b> to confirm.</p>
-            <input className="input" value={resetText} onChange={(e) => setResetText(e.target.value)} autoFocus />
+            <input className="input public" value={resetText} onChange={(e) => setResetText(e.target.value)} autoFocus />
           </div>
         }
         confirmLabel="Wipe it all"

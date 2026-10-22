@@ -6,7 +6,7 @@ import { analytics, views } from '../core/analytics';
 import { goals } from '../core/services';
 import { MONTH_NAMES, parseIso, shortDate, today } from '../core/date';
 import { ArrowLeft, Gift, Plus, Scale, Sprout } from 'lucide-react';
-import { Empty, Modal, Ring, useToast, WeightEditor } from '../ui/components';
+import { Empty, Modal, Pv, Ring, useToast, WeightEditor } from '../ui/components';
 import { AreaBadge, areaColor, bandColor } from '../ui/areas';
 
 export function MonthDetail() {
@@ -83,8 +83,8 @@ export function MonthDetail() {
               <motion.div key={n.goal.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
                 <Link to={`/months/${mk.year}/${mk.month}/goal/${n.goal.id}`} className="goal-card card" style={{ ['--c' as string]: color }}>
                   <AreaBadge area={n.area} size="lg" />
-                  <small className="muted">{n.area.name}</small>
-                  <h3>{n.goal.title}</h3>
+                  <small className="muted"><Pv>{n.area.name}</Pv></small>
+                  <h3><Pv>{n.goal.title}</Pv></h3>
                   <div className="row between">
                     <span className="chip">{n.goal.weight}% of month</span>
                     <span className="chip">{n.processCount} processes</span>

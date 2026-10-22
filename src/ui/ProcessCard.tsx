@@ -4,6 +4,7 @@ import type { ProcessExecutionRow } from '../core/models';
 import { scoring } from '../core/scoring';
 import { execution } from '../core/services';
 import { popAt } from './fx';
+import { Pv } from './components';
 
 /**
  * One controllable behaviour, as a big tappable card.
@@ -55,8 +56,8 @@ export function ProcessCard({ row, date, color }: { row: ProcessExecutionRow; da
             {done && <Check size={16} strokeWidth={3.5} />}
           </span>
           <div className="pcard-text">
-            <span className="pcard-name">{p.name}</span>
-            {p.description && <span className="pcard-desc">{p.description}</span>}
+            <span className="pcard-name"><Pv>{p.name}</Pv></span>
+            {p.description && <span className="pcard-desc"><Pv>{p.description}</Pv></span>}
           </div>
           <span className="pts" title="Points toward this goal">
             {row.todayContribution > 0 ? `+${row.todayContribution}` : p.weight}

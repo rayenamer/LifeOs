@@ -6,7 +6,8 @@ import { goals, weightsValid } from '../core/services';
 import { scoring } from '../core/scoring';
 import { addDays, monthOf, MONTH_NAMES, sameMonth, shortDate, today } from '../core/date';
 import { ArrowLeft, CalendarCheck, Hash, Pencil, SearchX, Target, Trash2 } from 'lucide-react';
-import { Confirm, Empty, Ring, useToast, WeightEditor } from '../ui/components';
+import { usePrivate } from '../core/privacy';
+import { Confirm, Empty, Pv, Ring, useToast, WeightEditor } from '../ui/components';
 import { ProcessCard } from '../ui/ProcessCard';
 import { ProcessEditor, PSpec } from '../ui/ProcessEditor';
 import { AreaBadge, areaColor, areaIconName, IconPicker } from '../ui/areas';
@@ -16,6 +17,7 @@ export function GoalDetail() {
   const navigate = useNavigate();
   const toast = useToast();
   const view = useDb(() => views.goalDetail(goalId), [goalId]);
+  const hidden = usePrivate();
   const [editing, setEditing] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [title, setTitle] = useState('');
@@ -70,9 +72,9 @@ export function GoalDetail() {
       <header className="goal-hero card" style={{ ['--c' as string]: color }}>
         <AreaBadge area={area} size="xl" />
         <div className="grow">
-          <p className="eyebrow">{area.name} · {goal.weight}% of the month</p>
-          <h1>{goal.title}</h1>
-          {goal.description && <p className="muted">{goal.description}</p>}
+          <p className="eyebrow"><Pv>{area.name}</Pv> · {goal.weight}% of the month</p>
+          <h1><Pv>{goal.title}</Pv></h1>
+          {goal.description && <p className="muted"><Pv>{goal.description}</Pv></p>}
           <div className="row gap wrap">
             {!editing && <button className="btn ghost small" onClick={startEdit}><Pencil size={14} /> Edit</button>}
             <button className="btn ghost small danger-text" onClick={() => setConfirmDelete(true)}><Trash2 size={14} /> Delete</button>
@@ -90,7 +92,7 @@ export function GoalDetail() {
           <input className="input big" value={title} onChange={(e) => setTitle(e.target.value)} />
           <textarea className="input" placeholder="Why it matters" value={description} onChange={(e) => setDescription(e.target.value)} />
           <details>
-            <summary>Area icon for “{area.name}”</summary>
+            <summary>Area icon for “<Pv>{area.name}</Pv>”</summary>
             <IconPicker value={icon} onPick={setIcon} color={color} />
           </details>
           <h3>Processes</h3>
@@ -127,7 +129,7 @@ export function GoalDetail() {
                 return (
                   <div key={r.process.id} className="pstat">
                     <div className="row between center-y">
-                      <b>{r.process.name}</b>
+                      <b><Pv>{r.process.name}</Pv></b>
                       <span className="chip">{r.process.weight} pts</span>
                     </div>
                     <div className="row gap muted small-text">
@@ -141,7 +143,7 @@ export function GoalDetail() {
                         return (
                           <span
                             key={d}
-                            title={`${shortDate(d)} · ${Math.round(ratio * 100)}%${byDate.get(d)?.note ? ' · note: ' + byDate.get(d)!.note : ''}`}
+                            title={`${shortDate(d)} · ${Math.round(ratio * 100)}%${byDate.get(d)?.note && !hidden ? ' · note: ' + byDate.get(d)!.note : ''}`}
                             style={{ background: ratio > 0 ? color : undefined, opacity: ratio > 0 ? 0.25 + ratio * 0.75 : 1 }}
                           />
                         );
@@ -159,7 +161,7 @@ export function GoalDetail() {
         open={confirmDelete}
         danger
         title="Delete this goal?"
-        message={<p>“{goal.title}”, its processes and all their check-ins will be removed. Daily scores for the month are recalculated.</p>}
+        message={<p>“<Pv>{goal.title}</Pv>”, its processes and all their check-ins will be removed. Daily scores for the month are recalculated.</p>}
         confirmLabel="Delete forever"
         onClose={() => setConfirmDelete(false)}
         onConfirm={() => {

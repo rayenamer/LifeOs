@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createBrowserRouter, Navigate, RouteObject, RouterProvider } from 'react-router-dom';
 import { sqlite } from './db/sqlite';
 import { consistency, settings } from './core/services';
+import { privacy } from './core/privacy';
 import { ToastProvider } from './ui/components';
 import { Shell } from './Shell';
 import { Today } from './pages/Today';
@@ -45,6 +46,7 @@ export function App() {
       .init()
       .then(() => {
         settings.apply();
+        privacy.apply();
         consistency.recompute(); // a new day may have started since the last visit
         setState('ready');
       })

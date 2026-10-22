@@ -5,6 +5,16 @@ import type { HeatCell, NamedScore } from '../core/models';
 import { scoring } from '../core/scoring';
 import { MONTH_NAMES, parseIso, shortDate } from '../core/date';
 import { BAND_LABEL, bandColor } from './areas';
+import { usePrivate } from '../core/privacy';
+
+// --- private text -------------------------------------------------------------
+
+/** Personal text. In private mode it renders as a blank pill — the text never reaches the page. */
+export function Pv({ children }: { children: string | null | undefined }) {
+  const hidden = usePrivate();
+  if (!hidden || !children) return <>{children}</>;
+  return <span className="pv" role="img" aria-label="Hidden" style={{ width: `${Math.min(10, 3 + children.length / 4)}em` }} />;
+}
 
 // --- progress ring ------------------------------------------------------------
 
@@ -97,7 +107,18 @@ export function Heatmap({ cells }: { cells: HeatCell[] }) {
 
 // --- horizontal bars -----------------------------------------------------------
 
-export function Bars({ items, empty = 'Nothing here yet', ranked = false }: { items: NamedScore[]; empty?: string; ranked?: boolean }) {
+export function Bars({
+  items,
+  empty = 'Nothing here yet',
+  ranked = false,
+  personal = false,
+}: {
+  items: NamedScore[];
+  empty?: string;
+  ranked?: boolean;
+  /** Labels are areas / goals / processes — hidden in private mode. */
+  personal?: boolean;
+}) {
   if (!items.length) return <p className="muted center">{empty}</p>;
   return (
     <ul className="bars">
@@ -105,8 +126,8 @@ export function Bars({ items, empty = 'Nothing here yet', ranked = false }: { it
         <li key={(it.id ?? it.label) + i}>
           <span className="bar-label">
             {ranked && <span className={`rank rank-${i + 1}`}>{i + 1}</span>}
-            {it.label}
-            {it.sub && <small> · {it.sub}</small>}
+            {personal ? <Pv>{it.label}</Pv> : it.label}
+            {it.sub && <small> · {personal ? <Pv>{it.sub}</Pv> : it.sub}</small>}
           </span>
           <span className="bar-track">
             <motion.span
@@ -296,7 +317,7 @@ export function WeightEditor({ items, onChange, target = 100 }: { items: WeightI
         <label className="weight-row" key={it.key}>
           <span className="weight-name">
             <span className="dot" style={{ background: it.color ?? 'var(--accent)' }} />
-            {it.label || <em className="muted">Untitled</em>}
+            {it.label ? <Pv>{it.label}</Pv> : <em className="muted">Untitled</em>}
           </span>
           <input type="range" min={0} max={100} value={it.weight} onChange={(e) => set(i, Number(e.target.value))} style={{ accentColor: it.color ?? 'var(--accent)' }} />
           <input className="input weight-num" type="number" min={0} max={100} value={it.weight} onChange={(e) => set(i, Number(e.target.value))} />

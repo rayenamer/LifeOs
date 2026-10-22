@@ -6,7 +6,7 @@ import { goals, sumWeights, weightsValid } from '../core/services';
 import type { MonthKey } from '../core/models';
 import { currentMonth, MONTH_NAMES } from '../core/date';
 import { ArrowLeft, ArrowRight, Check, Hash, Plus, Rocket, SquareCheck } from 'lucide-react';
-import { evenSplit, useToast, WeightEditor } from '../ui/components';
+import { evenSplit, Pv, useToast, WeightEditor } from '../ui/components';
 import { ProcessEditor, PSpec, blankSpec } from '../ui/ProcessEditor';
 import { AreaBadge, areaColor, AREA_COLORS, IconPicker } from '../ui/areas';
 import { fireworks } from '../ui/fx';
@@ -129,8 +129,8 @@ export function GoalWizard() {
                     onClick={() => { setAreaId(a.id); setNewArea(false); }}
                   >
                     <AreaBadge area={a} size="sm" />
-                    <b>{a.name}</b>
-                    {a.description && <small>{a.description}</small>}
+                    <b><Pv>{a.name}</Pv></b>
+                    {a.description && <small><Pv>{a.description}</Pv></small>}
                   </button>
                 ))}
                 <button type="button" className={`pick new ${newArea ? 'sel' : ''}`} onClick={() => { setNewArea(true); setAreaId(''); }}>
@@ -199,13 +199,13 @@ export function GoalWizard() {
           {step === 5 && (
             <div className="launch">
               <AreaBadge area={previewArea} size="xl" />
-              <small className="muted">{previewArea?.name} · {label(month)} · {weight}% of the month</small>
-              <h2>{title}</h2>
-              {description && <p className="muted">{description}</p>}
+              <small className="muted"><Pv>{previewArea?.name}</Pv> · {label(month)} · {weight}% of the month</small>
+              <h2><Pv>{title}</Pv></h2>
+              {description && <p className="muted"><Pv>{description}</Pv></p>}
               <ul className="launch-list">
                 {validSpecs.map((s) => (
                   <li key={s.key}>
-                    <span className="with-icon">{Number(s.targetValue) > 1 ? <Hash size={15} /> : <SquareCheck size={15} />} {s.name}{Number(s.targetValue) > 1 ? ` — ${s.targetValue} ${s.unit}` : ''}</span>
+                    <span className="with-icon">{Number(s.targetValue) > 1 ? <Hash size={15} /> : <SquareCheck size={15} />} <Pv>{s.name}</Pv>{Number(s.targetValue) > 1 ? ` — ${s.targetValue} ${s.unit}` : ''}</span>
                     <b>{s.weight} pts</b>
                   </li>
                 ))}

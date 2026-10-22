@@ -1,8 +1,8 @@
 import { useDb } from '../core/store';
 import { analytics } from '../core/analytics';
 import { settings } from '../core/services';
-import { Activity, CalendarDays, CalendarRange, CheckCircle2, Flame, Gauge, Repeat, Snowflake, TrendingDown, TrendingUp } from 'lucide-react';
-import { Bars, Heatmap, Stat } from '../ui/components';
+import { Activity, CalendarDays, CalendarRange, CheckCircle2, Flame, Gauge, Repeat, Snowflake, Star, TrendingDown, TrendingUp } from 'lucide-react';
+import { Bars, Heatmap, Pv, Stat } from '../ui/components';
 import { ScoreChart } from '../ui/ScoreChart';
 
 export function Insights() {
@@ -25,6 +25,14 @@ export function Insights() {
         <Stat icon={Repeat} tone="#f0a030" label="Consistency" value={`${v.processConsistency}%`} sub="days engaged" />
         <Stat icon={Activity} tone="#6d5efc" label="Active days" value={v.activeDays} sub={`${v.missedDays} missed`} />
         <Stat icon={Snowflake} tone="#3aa7e8" label="Freezes used" value={v.freezeDaysUsed} />
+        <Stat
+          icon={v.avg7 >= v.avg30 ? TrendingUp : TrendingDown}
+          tone={v.avg7 >= v.avg30 ? '#22b07d' : '#e5484d'}
+          label="Momentum"
+          value={`${v.avg7 - v.avg30 > 0 ? '+' : ''}${v.avg7 - v.avg30}`}
+          sub={`7d ${v.avg7} vs 30d ${v.avg30}`}
+        />
+        <Stat icon={Star} tone="#f5c542" label="Perfect days" value={v.perfectDaysThisMonth} sub="scored 100 this month" />
       </div>
 
       <ScoreChart mvd={mvd} />
@@ -37,7 +45,7 @@ export function Insights() {
       <div className="two-col">
         <section className="card">
           <h3>Areas this month</h3>
-          <Bars items={v.scoreByArea} empty="No goals this month" />
+          <Bars items={v.scoreByArea} personal empty="No goals this month" />
         </section>
         <section className="card">
           <h3>Month by month</h3>
@@ -49,11 +57,11 @@ export function Insights() {
         <h3>Process leaderboard</h3>
         {v.strongestProcess && v.weakestProcess && v.scoreByProcess.length > 1 && (
           <div className="row gap wrap callouts">
-            <span className="callout good"><TrendingUp size={16} /> Strongest: <b>{v.strongestProcess.label}</b> ({v.strongestProcess.score}%)</span>
-            <span className="callout weak"><TrendingDown size={16} /> Weakest: <b>{v.weakestProcess.label}</b> ({v.weakestProcess.score}%)</span>
+            <span className="callout good"><TrendingUp size={16} /> Strongest: <b><Pv>{v.strongestProcess.label}</Pv></b> ({v.strongestProcess.score}%)</span>
+            <span className="callout weak"><TrendingDown size={16} /> Weakest: <b><Pv>{v.weakestProcess.label}</Pv></b> ({v.weakestProcess.score}%)</span>
           </div>
         )}
-        <Bars items={v.scoreByProcess} ranked empty="No processes this month" />
+        <Bars items={v.scoreByProcess} ranked personal empty="No processes this month" />
       </section>
     </div>
   );

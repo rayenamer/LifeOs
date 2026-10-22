@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useDb } from '../core/store';
 import { analytics } from '../core/analytics';
 import { ArrowLeft, Award, CalendarCheck, Compass, Flame, Gauge, LucideIcon, TrendingDown, TriangleAlert } from 'lucide-react';
-import { Bars, Ring } from '../ui/components';
+import { Bars, Pv, Ring } from '../ui/components';
 
 /** "Month wrapped" — the monthly review as a stack of playful cards. */
 export function MonthReview() {
@@ -15,11 +16,11 @@ export function MonthReview() {
     { icon: Gauge, title: 'Month score', big: v.monthScore, sub: 'average daily score', tone: 'violet' },
     { icon: CalendarCheck, title: 'Days you showed up', big: `${v.activeDays}/${v.totalDays}`, sub: 'active days', tone: 'mint' },
     { icon: Flame, title: 'Streak at month end', big: v.streakDays, sub: 'days in a row', tone: 'coral' },
-    v.bestProcess && { icon: Award, title: 'Best process', big: v.bestProcess.label, sub: `${v.bestProcess.score}% · ${v.bestProcess.sub}`, tone: 'amber' },
-    v.mostConsistentArea && { icon: Compass, title: 'Most consistent area', big: v.mostConsistentArea.label, sub: `${v.mostConsistentArea.score} pts`, tone: 'sky' },
-    v.weakestProcess && v.weakestProcess !== v.bestProcess && { icon: TriangleAlert, title: 'Weakest process', big: v.weakestProcess.label, sub: `${v.weakestProcess.score}% · ${v.weakestProcess.sub}`, tone: 'pink' },
-    v.biggestDrop && { icon: TrendingDown, title: 'Biggest drop vs last month', big: v.biggestDrop.label, sub: v.biggestDrop.sub ?? '', tone: 'slate' },
-  ].filter(Boolean) as { icon: LucideIcon; title: string; big: string | number; sub: string; tone: string }[];
+    v.bestProcess && { icon: Award, title: 'Best process', big: <Pv>{v.bestProcess.label}</Pv>, sub: <>{v.bestProcess.score}% · <Pv>{v.bestProcess.sub}</Pv></>, tone: 'amber' },
+    v.mostConsistentArea && { icon: Compass, title: 'Most consistent area', big: <Pv>{v.mostConsistentArea.label}</Pv>, sub: `${v.mostConsistentArea.score} pts`, tone: 'sky' },
+    v.weakestProcess && v.weakestProcess !== v.bestProcess && { icon: TriangleAlert, title: 'Weakest process', big: <Pv>{v.weakestProcess.label}</Pv>, sub: <>{v.weakestProcess.score}% · <Pv>{v.weakestProcess.sub}</Pv></>, tone: 'pink' },
+    v.biggestDrop && { icon: TrendingDown, title: 'Biggest drop vs last month', big: <Pv>{v.biggestDrop.label}</Pv>, sub: v.biggestDrop.sub ?? '', tone: 'slate' },
+  ].filter(Boolean) as { icon: LucideIcon; title: string; big: ReactNode; sub: ReactNode; tone: string }[];
 
   return (
     <div className="page">
@@ -50,7 +51,7 @@ export function MonthReview() {
           <h3>Areas</h3>
           <Ring value={v.monthScore} size={56} stroke={7}><b className="mini-num">{v.monthScore}</b></Ring>
         </div>
-        <Bars items={v.areaScores} empty="No goals that month" />
+        <Bars items={v.areaScores} personal empty="No goals that month" />
       </section>
     </div>
   );

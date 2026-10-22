@@ -209,6 +209,9 @@ export interface InsightsView {
   avgDaily: number;
   weeklyAvg: number;
   monthlyAvg: number;
+  avg7: number; // momentum: last 7 days vs last 30, today included
+  avg30: number;
+  perfectDaysThisMonth: number; // days scored 100
   processCompletionRate: number;
   processConsistency: number;
   currentStreak: number;
